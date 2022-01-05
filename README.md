@@ -1,4 +1,4 @@
-Trabalho Final do curso de engenharia de dados da SoulCode Academy - Turma BC8
+Trabalho final do curso de engenharia de dados da SoulCode Academy - Turma BC8
 
 Integrantes:
 
