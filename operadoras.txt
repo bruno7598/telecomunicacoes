@@ -1,0 +1,22 @@
+Colunas:
+Ano
+Operadora
+Tecnologia
+Código Setor Censitário
+Bairro
+Tipo Setor
+Código Localidade
+Nome Localidade
+Categoria Localidade
+Localidade Agregadora
+Código Município
+Município
+UF
+Região
+Área (km2)
+Domicílios
+Moradores
+Percentual Cobertura
+
+
+
