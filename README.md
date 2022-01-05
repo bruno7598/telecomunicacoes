@@ -7,3 +7,7 @@ Integrantes:
 - Edson Sabino da Silva
 - Leila Moreira Gomes Roque
 - Thaís Cristina de Aguiar
+
+Tema:
+
+- Telecomunicações
