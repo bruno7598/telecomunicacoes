@@ -1,0 +1,38 @@
+Colunas:
+Ano
+Operadora
+Tecnologia
+Código Setor Censitário
+Bairro
+Tipo Setor
+Código Localidade
+Nome Localidade
+Categoria Localidade
+Localidade Agregadora
+Código Município
+Município
+UF
+Região
+Área (km2)
+Domicílios
+Moradores
+Percentual Cobertura
+
+Total de colunas:
+18
+
+Total de linhas:
+1.447.226
+
+Sugestões de perguntas (diversas):
+1- Quantidade de domicílios por operadora ?
+2- Quantidade de moradores por operadora ?
+3- Quantidade de area(km²) por operadora ?
+3- Porcentagem de domicilios por operadora ?
+4- Porcentagem de moradores por operadora ?
+5- Porcentagem de domicílios por operadora ?
+6- Porcentagem de area(km²) por operadora ?
+
+
+
+
