@@ -12,6 +12,13 @@ Tema:
 
 - Telecomunicações
 
+Fonte dos dados: https://dados.gov.br/dataset/
+   https://informacoes.anatel.gov.br/paineis/
+
+5 bases de dados em CSV
+Total de linhas nos 5 arquivos: 12.330.133
+
+
 Planos:
 
 ```
