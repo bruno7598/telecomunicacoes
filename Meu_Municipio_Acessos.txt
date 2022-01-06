@@ -1,0 +1,22 @@
+Meu_Municipio_Acessos:
+
+- ano (19,20,21)
+- mes (6 ou 12)
+- acessos (isso está confuso)
+- serviço (banda larga, tv assinatura, telefonia fixa, telefonia móvel)
+- densidade (número de acessos/quantidade de domícilios)
+    - Esses valores estão muito altos e não estão bem explicados
+- codigo ibge
+
+As informações abaixo também existem, porém creio que possam ser relacionadas com o código ibge
+
+- nome município
+- uf
+- região
+- codigo nacional (ddd do município
+
+Perguntas:
+
+1. Qual é o tipo de serviço mais assinado no BR?
+2. Qual estado mostra o maior crescimento de assinaturas de serviços de tecnologia móvel nos últimos 3 anos?
+3. Quais são as 5 cidades com as maiores densidades de acesso para internet banda larga fixa e telefonia móvel
