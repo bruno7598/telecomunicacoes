@@ -1,7 +1,7 @@
 No arquivo Meu_Municipio_Cobertura.csv
 
 15 colunas
-258796 linhas
+258.796 linhas
 
 1.	Operadora
 2.	Tecnologia Cobertura
@@ -19,13 +19,15 @@ No arquivo Meu_Municipio_Cobertura.csv
 14.	Região
 15.	Código Nacional
 
-Quantas operadoras tem no Brasil
-Quantas operadoras tem por região
-Quantas operadoras tem por UF
-Quantas operadoras tem por município
-Quais operadoras tem quais tipos de tecnologia (2G,3G,4G) por área coberta
-Quantos domicílios cobertos por cada operadora
-Quantas pessoas por Km2 a operadora cobre
-Relação de pessoas por município que possuem cobertura
-Quais operadoras não tem determinados tipos de tecnologia, exemplo, não tem 4G
-Onde cada operadora não possui cobertura em 2021
+Perguntas:
+
+1.	Quantas operadoras tem no Brasil
+2.	Quantas operadoras tem por região
+3.	Quantas operadoras tem por UF
+4.	Quantas operadoras tem por município
+5.	Quais operadoras têm quais tipos de tecnologia (2G,3G,4G) por área coberta
+6.	Quantos domicílios cobertos por cada operadora
+7.	Quantas pessoas por Km2 a operadora cobre
+8.	Relação de pessoas por município que possuem cobertura
+9.	Quais operadoras não têm determinados tipos de tecnologia, exemplo, não tem 4G
+10.	Onde cada operadora não possui cobertura em 2021
