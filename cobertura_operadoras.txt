@@ -1,38 +1,33 @@
-Colunas:
-Ano
-Operadora
-Tecnologia
-Código Setor Censitário
-Bairro
-Tipo Setor
-Código Localidade
-Nome Localidade
-Categoria Localidade
-Localidade Agregadora
-Código Município
-Município
-UF
-Região
-Área (km2)
-Domicílios
-Moradores
-Percentual Cobertura
+No arquivo cobertura_movel.zip
 
-Total de colunas:
-18
-
-Total de linhas:
+18 Colunas
 1.447.226
 
-Sugestões de perguntas (diversas):
-1- Quantidade de domicílios por operadora ?
-2- Quantidade de moradores por operadora ?
-3- Quantidade de area(km²) por operadora ?
-3- Porcentagem de domicilios por operadora ?
-4- Porcentagem de moradores por operadora ?
-5- Porcentagem de domicílios por operadora ?
-6- Porcentagem de area(km²) por operadora ?
+1.	Ano
+2.	Operadora
+3.	Tecnologia
+4.	Código Setor Censitário
+5.	Bairro
+6.	Tipo Setor
+7.	Código Localidade
+8.	Nome Localidade
+9.	Categoria Localidade
+10.	Localidade Agregadora
+11.	Código Município
+12.	Município
+13.	UF
+14.	Região
+15.	Área (km2)
+16.	Domicílios
+17.	Moradores
+18.	Percentual Cobertura
 
+Perguntas:
 
-
-
+11.	Quantidade de domicílios por operadora?
+12.	Quantidade de moradores por operadora?
+13.	Quantidade de área(km²) por operadora?
+14.	Porcentagem de domicílios por operadora?
+15.	Porcentagem de moradores por operadora?
+16.	Porcentagem de domicílios por operadora?
+17.	Porcentagem de área(km²) por operadora?
