@@ -1,27 +1,30 @@
+No arquivo acessos_banda_larga_fixa.zip
+
 13 colunas
-4767901
+4.767.901
 
-Ano
-Mês     
-Grupo Econômico
-Empresa
-CNPJ
-Porte da Prestadora
-UF           
-Município
-Código IBGE Município
-Faixa de Velocidade
-Tecnologia|
-Meio de Acesso
-Tipo de Pessoa
-Acessos
+1.	Ano
+2.	Mês     
+3.	Grupo Econômico
+4.	Empresa
+5.	CNPJ
+6.	Porte da Prestadora
+7.	UF           
+8.	Município
+9.	Código IBGE Município
+10.	Faixa de Velocidade
+11.	Tecnologia
+12.	Meio de Acesso
+13.	Tipo de Pessoa
+14.	Acessos
 
+Perguntas:
 
-Quais velocidades mais utilizada em cada tipo de tecnologia
-Quais os municipios(ou região) que tem fibra otica ou satalite em melhor qualidade
-Qual a maior tecnologia utilizada em 2021
-Qual o maior meio de acesso usado em 2021
-Agrupando por , qual o serviço mais utilizado
-A empresa mais procurada pelas regiões
-As empresas faltantes em regiões
-informações faltantes
+1.	Quais velocidades mais utilizadas em cada tipo de tecnologia
+2.	Quais os municípios (ou região) que tem fibra ótica ou satélite em melhor qualidade
+3.	Qual a maior tecnologia utilizada em 2021
+4.	Qual o maior meio de acesso usado em 2021
+5.	Agrupando por qual o serviço mais utilizado
+6.	A empresa mais procurada pelas regiões
+7.	As empresas faltantes em regiões
+8.	Informações faltantes
