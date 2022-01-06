@@ -1,4 +1,7 @@
-Planilha Velocidade contratada
+No arquivo velocidade_contratada_scm.csv
+
+11 colunas
+5.789.372 linhas
 
 1.	Ano
 2.	Mês
@@ -12,5 +15,7 @@ Planilha Velocidade contratada
 10.	tipo - Os acessos do tipo Internet são aqueles utilizados para comunicação com a rede mundial de computadores (exemplos: banda larga residencial, contratos corporativos de conexão à rede mundial de computadores). Os demais acessos são classificados como Não Internet (exemplos: comunicação entre dois endereços fixos, comunicação entre filiais de uma empresa).
 11.	municipio_uf
 
+Perguntas:
+
 - Quantidade de acessos por prestador de serviço
-- Quantidade de acessos por estado ou municipio
+- Quantidade de acessos por estado ou município
