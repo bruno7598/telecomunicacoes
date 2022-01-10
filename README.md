@@ -8,6 +8,8 @@ Integrantes:
 - Leila Moreira Gomes Roque
 - Thaís Cristina de Aguiar
 
+Orientador: Felipe Muylaert
+
 Tema:
 
 - Telecomunicações
