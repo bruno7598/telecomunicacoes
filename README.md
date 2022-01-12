@@ -17,9 +17,9 @@ Tema:
 Fonte dos dados: https://dados.gov.br/dataset/
    https://informacoes.anatel.gov.br/paineis/
 
-5 bases de dados em CSV
+6 bases de dados em CSV
 
-Total de linhas nos 5 arquivos: 12.330.133
+Total de linhas nos 6 arquivos: *******
 
 
 Planos:
