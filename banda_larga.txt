@@ -21,10 +21,23 @@ No arquivo acessos_banda_larga_fixa.zip
 Perguntas:
 
 1.	Quais velocidades mais utilizadas em cada tipo de tecnologia
-2.	Quais os municípios (ou região) que tem fibra ótica ou satélite em melhor qualidade
+
+2.	Quais os municípios (ou região) que tem fibra ótica ou satélite em melhor qualidade - 
+FTTH (Fiber to the Home) é derivado do original e genérico FTTx, ou seja, Fiber to The Anywhere, que didaticamente significa “fibra até qualquer lugar”
+FTTB (acrônimo de Fiber-to-the-Building ou Fiber-to-the-Basement) leva a fibra óptica da central da empresa até um armário posicionado dentro de edifícios ou condomínios
+Ethernet é uma arquitetura de interconexão cabeada para redes locais
+O HDSL foi desenvolvido como uma tecnologia alternativa sem repetidores para disponibilização de serviços T1
+
+
 3.	Qual a maior tecnologia utilizada em 2021
+
+
 4.	Qual o maior meio de acesso usado em 2021
+
+
 5.	Agrupando por qual o serviço mais utilizado
+
+
 6.	A empresa mais procurada pelas regiões
-7.	As empresas faltantes em regiões
-8.	Informações faltantes
+
+
