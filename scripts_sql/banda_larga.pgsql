@@ -16,6 +16,10 @@
 
 -- TABELAS
 
+NOME TABELAS = log_banda_larga, banda_larga
+NOME DAS VIEWS = Empresa, tecnologia, acesso, Localidade 
+
+
 CREATE TABLE IF NOT EXISTS log_banda_larga(
     id_log_banda serial primary key,
     usuario text,
@@ -44,7 +48,6 @@ create table if not exists banda_larga (
 
 
 -- FUNCTIONS E TRIGGERS
-
 
 CREATE OR REPLACE FUNCTION FUNCTION_LOG_BANDA_LARGA() RETURNS TRIGGER AS $$
     BEGIN

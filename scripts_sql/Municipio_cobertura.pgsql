@@ -17,6 +17,10 @@
 
 -- TABELAS
 
+NOME TABELAS = log_municipio_cobertura, municipio_cobertura
+NOME DAS VIEWS = Operadoras, AreaCobertura, AreaMunipios, LocaisCobertura 
+
+
 CREATE TABLE IF NOT EXISTS log_municipio_cobertura(
     id_log_acessos serial primary key,
     usuario text,

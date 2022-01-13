@@ -13,6 +13,11 @@
 
 -- TABELAS
 
+
+NOME TABELAS = log_municipio_acessos, municipio_acesso
+NOME DAS VIEWS = Servicos, LocaisAcesso 
+
+
 CREATE TABLE IF NOT EXISTS log_municipio_acessos(
     id_log_acessos serial primary key,
     usuario text,
