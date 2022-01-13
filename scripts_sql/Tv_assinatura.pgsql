@@ -25,8 +25,9 @@ CREATE TABLE IF NOT EXISTS log_tv_assinatura(
 );
 
 
+
 create table if not exists tv_assinatura (
-    id_cobertura serial primary key,
+    id_tv_assinatura serial primary key,
     ano int,
     mes int,
     grupo_economico text,
@@ -86,8 +87,6 @@ CREATE TRIGGER tv_assinatura_1 AFTER INSERT ON tv_assinatura
 FOR EACH ROW EXECUTE PROCEDURE TvAssinatura_function_normalizacao1();
 
 
-
-
 CREATE OR REPLACE FUNCTION TvAssinatura_function_normalizacao2() RETURNS TRIGGER as $$
     BEGIN
     	IF (tg_op = 'INSERT') THEN
@@ -106,7 +105,6 @@ FOR EACH ROW EXECUTE PROCEDURE TvAssinatura_function_normalizacao2();
 
 
 
-
 CREATE OR REPLACE FUNCTION TvAssinatura_function_normalizacao3() RETURNS TRIGGER as $$
     BEGIN
     	IF (tg_op = 'INSERT') THEN
@@ -122,3 +120,4 @@ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER tv_assinatura_3 AFTER INSERT ON tv_assinatura
 FOR EACH ROW EXECUTE PROCEDURE TvAssinatura_function_normalizacao3();
+
