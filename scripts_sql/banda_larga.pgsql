@@ -16,12 +16,11 @@
 
 -- TABELAS
 
-CREATE TABLE IF NOT EXISTS log_telecom(
-    id_log serial primary key,
-    empresa text,
-    cnpj bigint,
-    grupo_economico text,
-    tipo_pessoa text
+CREATE TABLE IF NOT EXISTS log_banda_larga(
+    id_log_banda serial primary key,
+    usuario text,
+    data_registro date,
+    dados text
 );
 
 create table if not exists banda_larga (
@@ -42,88 +41,59 @@ create table if not exists banda_larga (
     acesso bigint
 ); 
 
-create table if not exists empresas (
-	id_empresa serial,
-	nome_empresa text,
-	grupo_economico text,
-	cnpj bigint
-);
-
-
-create table if not exists tecnologia (
-	id_tecnologia serial,
-	faixa_velocidade text,
-	tecnologia_usada text,
-	meio_acesso text
-);
-
-create table if not exists localidade (
-	id_local serial,
-	uf text,
-	municipio text,
-	ibge bigint
-);
 
 
 -- FUNCTIONS E TRIGGERS
 
 
-CREATE OR REPLACE FUNCTION tgr_function_telecom() RETURNS TRIGGER as $$
+CREATE OR REPLACE FUNCTION FUNCTION_LOG_BANDA_LARGA() RETURNS TRIGGER AS $$
     BEGIN
-    -- Aqui temos um bloco IF que confirmará o tipo de operação de Inserção
-        IF (tg_op = 'INSERT') THEN
-            INSERT INTO log_telecom(empresa, cnpj, grupo_economico,tipo_pessoa)
-            VALUES (NEW.empresa, NEW.cnpj, 'Operação de Inserção. A linha de Código' || NEW.grupo_economico || 'Foi inserido', NEW.tipo_pessoa);
-            RETURN NEW;
-    -- Aqui temos um bloco IF que confirmará o tipo de operação de Atualização
-        ELSIF (tg_op = 'UPDATE') THEN
-            INSERT INTO log_telecom(empresa, cnpj, grupo_economico,tipo_pessoa)
-            VALUES (NEW.empresa, 'Operação de Atualização. 
-            A linha de Código' || NEW.cnpj || 'Teve seus valores modificados' || OLD.* || ' com  ' || NEW.* || ' .', NEW.tipo_pessoa);
-            RETURN NEW;
-    -- A'qui temos um bloco IF que confirmará o tipo de operação de Exclusão
-        ELSIF (tg_op = 'DELETE') THEN
-            INSERT INTO log_telecom(empresa, cnpj, grupo_economico,tipo_pessoa)
-            VALUES (OLD.*, 'Operação de Exclusão. Os seguintes dados foram excluidos: ' || OLD.* || ' .');
-            RETURN OLD;
+        IF (TG_OP = 'INSERT') THEN
+        INSERT INTO log_banda_larga(usuario, data_registro, dados) VALUES (CURRENT_USER, CURRENT_TIMESTAMP, 'Inclusão realizada. ' || NEW.* || ' .' );
+        RETURN NEW;
+        ELSIF (TG_OP = 'UPDATE') THEN
+        INSERT INTO log_banda_larga(usuario, data_registro, dados) VALUES (CURRENT_USER, CURRENT_TIMESTAMP, 'Alteração realizada. Operação antiga: ' || OLD.* || ' para nova operação ' || NEW.* || ' .' );
+        RETURN NEW;
+        ELSIF (TG_OP = 'DELETE') THEN
+        INSERT INTO log_banda_larga(usuario, data_registro, dados) VALUES (CURRENT_USER, CURRENT_TIMESTAMP, 'Deleção realizada. Operação deletada: ' || OLD.* || ' .' );
+        RETURN OLD;
+        END IF;
+        RETURN NULLs;
+    END;
+$$
+LANGUAGE 'plpgsql';
+
+
+CREATE TRIGGER Tr_log_banda_larga AFTER INSERT or UPDATE or DELETE ON banda_larga
+FOR EACH ROW EXECUTE PROCEDURE FUNCTION_LOG_BANDA_LARGA();
+
+
+CREATE OR REPLACE FUNCTION bandalarga_function_normalizacao1() RETURNS TRIGGER as $$
+    BEGIN
+    	IF (tg_op = 'INSERT') THEN
+            CREATE or REPLACE view Empresa as 
+            select id_banda,ano,mes, grupo_economico, empresa, cnpj, porte
+            from banda_larga  
+            order by empresa;   
         END IF;
         RETURN NULL;
     END;
 $$
 LANGUAGE 'plpgsql';
 
-
-CREATE TRIGGER Tr_log_telecommm AFTER INSERT or UPDATE or DELETE ON banda_larga
-FOR EACH ROW EXECUTE PROCEDURE tgr_function_telecom();
-
+CREATE TRIGGER Banda_larga_1 AFTER INSERT ON banda_larga
+FOR EACH ROW EXECUTE PROCEDURE bandalarga_function_normalizacao1();
 
 
 
-CREATE OR REPLACE FUNCTION normalizacao1_function_telecom() RETURNS TRIGGER as $$
+
+CREATE OR REPLACE FUNCTION bandalarga_function_normalizacao2() RETURNS TRIGGER as $$
     BEGIN
     	IF (tg_op = 'INSERT') THEN
-            INSERT INTO localidade(uf, municipio, ibge)
-            VALUES (NEW.uf, NEW.municipio, NEW.codigo_ibge_municipio);
-			RETURN NEW;
-            
-        END IF;
-        RETURN NULL;
-    END;
-$$
-LANGUAGE 'plpgsql';
-
-CREATE TRIGGER Tr_normalizacao_1 AFTER INSERT ON banda_larga
-FOR EACH ROW EXECUTE PROCEDURE normalizacao1_function_telecom();
-
-
-
-
-CREATE OR REPLACE FUNCTION normalizacao2_function_telecom() RETURNS TRIGGER as $$
-    BEGIN
-    	IF (tg_op = 'INSERT') THEN
-			INSERT INTO tecnologia(faixa_velocidade,tecnologia_usada,meio_acesso)
-            VALUES (NEW.faixa_velocidade, NEW.tecnologia, NEW.acesso);
-			RETURN NEW;
+			CREATE or REPLACE view Tecnologia as 
+            select id_banda, tecnologia, faixa_velocidade,  meio_acesso
+            from banda_larga  
+            order by tecnologia; 
 		END IF;
         RETURN NULL;
     END;
@@ -131,17 +101,18 @@ $$
 LANGUAGE 'plpgsql';
 
 
-CREATE TRIGGER Tr_normalizacao_2 AFTER INSERT ON banda_larga
-FOR EACH ROW EXECUTE PROCEDURE normalizacao2_function_telecom();
+CREATE TRIGGER Banda_larga_2 AFTER INSERT ON banda_larga
+FOR EACH ROW EXECUTE PROCEDURE bandalarga_function_normalizacao2();
 
 
 
-CREATE OR REPLACE FUNCTION normalizacao3_function_telecom() RETURNS TRIGGER as $$
+CREATE OR REPLACE FUNCTION bandalarga_function_normalizacao3() RETURNS TRIGGER as $$
     BEGIN
     	IF (tg_op = 'INSERT') THEN
-			INSERT INTO empresas(nome_empresa, grupo_economico, cnpj)
-            VALUES (NEW.empresa, NEW.grupo_economico, NEW.cnpj);
-            RETURN NEW;
+			CREATE or REPLACE view Localidade as 
+            select id_banda, uf, municipio, codigo_ibge_municipio
+            from banda_larga  
+            order by municipio; 
 		END IF;
         RETURN NULL;
     END;
@@ -149,13 +120,31 @@ $$
 LANGUAGE 'plpgsql';
 
 
-CREATE TRIGGER Tr_normalizacao_3 AFTER INSERT ON banda_larga
-FOR EACH ROW EXECUTE PROCEDURE normalizacao3_function_telecom();
+CREATE TRIGGER Banda_larga_3 AFTER INSERT ON banda_larga
+FOR EACH ROW EXECUTE PROCEDURE bandalarga_function_normalizacao3();
+
+
+CREATE OR REPLACE FUNCTION bandalarga_function_normalizacao4() RETURNS TRIGGER as $$
+    BEGIN
+    	IF (tg_op = 'INSERT') THEN
+			CREATE or REPLACE view Acessos as 
+            select id_banda, tipo_pessoa, acesso
+            from banda_larga  
+            order by id_banda; 
+		END IF;
+        RETURN NULL;
+    END;
+$$
+LANGUAGE 'plpgsql';
+
+
+CREATE TRIGGER Banda_larga_4 AFTER INSERT ON banda_larga
+FOR EACH ROW EXECUTE PROCEDURE bandalarga_function_normalizacao4();
+
+
 
 
 -- VIEWS
-
-
 
 CREATE or REPLACE view teste as 
     select empresa, tecnologia, faixa_velocidade from banda_larga where faixa_velocidade = '> 34Mbps' order by empresa;
