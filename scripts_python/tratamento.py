@@ -29,10 +29,10 @@ def pathDatalake():
     except Exception as e:
         print("Error in class ReadFormatCsv, def pathDatalake: ", str(e))
 
-def file():
+def file(file="curto_Meu_Municipio_Acessos.csv"):
     try:    
         """Usuário insere nome do arquivo para leitura"""
-        file = input("\nInsira o nome do arquivo e extensão: ")
+        #file = input("\nInsira o nome do arquivo e extensão: ")
         return file
     except Exception as e:
         print("Error in class ReadFormatCsv, def file: ", str(e))
@@ -61,10 +61,10 @@ def mudaNome(df):
         for header in lista_header_original:  
             str_temp=unidecode(header)
             
-            #str_temp_split=re.split(pattern=r"[-_\|\.+ ]",str_temp)
-            #str_temp="_".join(x, for x in str_temp_split)
+            list_words_split=str_temp.split(" ")
             
-            str_temp=re.sub(" ","_",str_temp)
+            str_temp="_".join(word for word in list_words_split)
+            
             df=df.withColumnRenamed(header,str_temp)
         return df    
     except Exception as e:
@@ -79,13 +79,53 @@ def mudaSimbolo(df,nome_coluna,simbolo_antigo,simbolo_novo):
     except Exception as e:
         print(str(e))
         
-def casaDecimal(df):
+def casaDecimal(df,coluna_a_mudar,novo_tipo='teste'):
+    """[summary]
+
+    Args:
+        df ([dataframe]): [description]
+        coluna_a_mudar ([string]): [description]
+        novo_tipo ([string]): [inteiro, decimal ou string]
+
+    Returns:
+        [type]: [description]
+    """
+
     try:
-        df=df.withColumn('Densidade', tt.col('Densidade').cast(DecimalType(38,2)))
+        df=df.withColumn(coluna_a_mudar, tt.col(coluna_a_mudar).cast(DecimalType(38,2)))
         return df  
     except Exception as e:
         print(str(e))
+
+def changeType(df, columnChange, new_type):
+    try:
+        #columnChange = input("\nINSIRA O NOME DA COLUNA QUE DESEJA ALTERAR O TIPO: ")
+        """
+        TIPOS:
+        [1] INTEIRO
+        [2] DECIMAL
+        [3] STRING
+        [4] FLOAT
+        """
+        #new_type = input("\nINSIRA O CODIGO DO NOVO TIPO: ")
         
+        if new_type == '1':
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(IntegerType())).show(truncate=False)
+        
+        elif new_type == '2':
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(DecimalType(38,2))).show(truncate=False)
+        
+        elif new_type == '3':
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(StringType())).show(truncate=False)
+        
+        elif new_type == '4':
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(FloatType())).show(truncate=False)
+        
+    except Exception as e:
+        print("Error in def changeType: ", str(e))
+    else:
+        return df
+    
 def contNull(df):
     try:
         df.select([tt.count(tt.when(tt.isnull(c),c))\
@@ -101,9 +141,10 @@ def fillNull(df,insert_value):
     for column in df.columns:
         df=df.na.fill(value=insert_value, subset=[column])
     return df
+
 def createParquet(df):
     try:
-        ft=df.write.parquet(pathWarehouse())
+        df.write.mode("overwrite").parquet(pathWarehouse())
     except Exception as e:
         print(str(e))
 
@@ -122,29 +163,32 @@ def readParquet():
 if __name__=="__main__":
     # ok retirar apostrofe e vírguls de todas as colunas
     # ok preencher nulls com valor
-    # usar overwrite do parquet
+    # ok usar overwrite do parquet
     # fazer função para mudar tipo da coluna
     # contar quantidade de linhas e colunas
     try: 
         df=readFormatCsv()
         
         df=mudaNome(df)
-        
-        for coluna in df.columns:
-            df=mudaSimbolo(df,"Municipio", "'","")
-            df=mudaSimbolo(df,"Densidade", ",",".")
-        
         df.show()
-        df=casaDecimal(df)
+        for coluna in df.columns:
+            df=mudaSimbolo(df,coluna, "'","")
+            df=mudaSimbolo(df,coluna, ",",".")
+        
+        
+        df=casaDecimal(df,'Densidade')
         
         df=contNull(df)
+        df=fillNull(df,'NULO')
+        df=fillNull(df,-1)
         
         createParquet(df)
         
         df_Parquet=readParquet()
         
         print("Imprime parquet 10")
-        df_Parquet.show(10, truncate=False)   
+        print("------------------")
+        df_Parquet.show(5, truncate=False)   
        
     except Exception as e:
         print(str(e))
