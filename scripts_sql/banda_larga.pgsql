@@ -145,34 +145,8 @@ CREATE TRIGGER Banda_larga_4 AFTER INSERT ON banda_larga
 FOR EACH ROW EXECUTE PROCEDURE bandalarga_function_normalizacao4();
 
 
+select t1.*, t2.*, t3.*, t4.* from Empresa t1 inner join Localidade t2 
+on t2.id_banda = t1.id_banda 
+inner join tecnologia t3 on t3.id_banda = t2.id_banda
+inner join acessos t4 on t4.id_banda = t3.id_banda;
 
-
--- VIEWS
-
-CREATE or REPLACE view teste as 
-    select empresa, tecnologia, faixa_velocidade from banda_larga where faixa_velocidade = '> 34Mbps' order by empresa;
-
-
-CREATE or REPLACE view teste_1 as 
-    select uf, municipio, tecnologia, faixa_velocidade from banda_larga where faixa_velocidade = '> 34Mbps' order by tecnologia;
-
-
-CREATE or REPLACE view teste_2 as 
-select tecnologia, count(tecnologia) from banda_larga group by tecnologia order by count(tecnologia) desc;
-
-
-CREATE or REPLACE view teste_3 as 
-select meio_acesso, count(meio_acesso) from banda_larga group by meio_acesso order by count(meio_acesso) desc;
-
-
-CREATE or REPLACE view teste_4 as
-select faixa_velocidade, count(faixa_velocidade) from banda_larga group by faixa_velocidade order by count(faixa_velocidade) desc;
-
-CREATE or REPLACE view teste_5 as
-select uf,count(empresa) from banda_larga group by uf order by count(empresa);
-
-CREATE or REPLACE view teste_6 as
-select grupo_economico, empresa, tipo_pessoa from banda_larga where tipo_pessoa in ('Pessoa Jurídica','Pessoa Física') order by empresa;
-
-CREATE or REPLACE view teste_7 as
-select tipo_pessoa, count(tipo_pessoa) from banda_larga group by tipo_pessoa order by count(tipo_pessoa) desc;

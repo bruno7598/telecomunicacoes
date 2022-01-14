@@ -36,7 +36,7 @@ create table if not exists tv_assinatura (
     porte_prestadora text,
     uf text,
     municipio text,
-    codigo_ibge_municipio text,
+    codigo_ibge_municipio int,
     Tecnologia text,
     Meio_acesso text,
     tipo_pessoa text,
@@ -121,3 +121,9 @@ LANGUAGE 'plpgsql';
 CREATE TRIGGER tv_assinatura_3 AFTER INSERT ON tv_assinatura
 FOR EACH ROW EXECUTE PROCEDURE TvAssinatura_function_normalizacao3();
 
+
+
+
+select t1.*, t2.*, t3.* from empresatvassinatura t1 inner join localidadetvassinatura t2 
+on t2.id_tv_assinatura = t1.id_tv_assinatura 
+inner join tipopessoatvassinatura t3 on t3.id_tv_assinatura = t2.id_tv_assinatura order by t1.id_tv_assinatura;
