@@ -96,7 +96,36 @@ def casaDecimal(df,coluna_a_mudar,novo_tipo='teste'):
         return df  
     except Exception as e:
         print(str(e))
+
+def changeType(df, columnChange, new_type):
+    try:
+        #columnChange = input("\nINSIRA O NOME DA COLUNA QUE DESEJA ALTERAR O TIPO: ")
+        """
+        TIPOS:
+        [1] INTEIRO
+        [2] DECIMAL
+        [3] STRING
+        [4] FLOAT
+        """
+        #new_type = input("\nINSIRA O CODIGO DO NOVO TIPO: ")
         
+        if new_type == '1':
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(IntegerType())).show(truncate=False)
+        
+        elif new_type == '2':
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(DecimalType(38,2))).show(truncate=False)
+        
+        elif new_type == '3':
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(StringType())).show(truncate=False)
+        
+        elif new_type == '4':
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(FloatType())).show(truncate=False)
+        
+    except Exception as e:
+        print("Error in def changeType: ", str(e))
+    else:
+        return df
+    
 def contNull(df):
     try:
         df.select([tt.count(tt.when(tt.isnull(c),c))\
