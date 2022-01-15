@@ -103,3 +103,6 @@ CREATE TRIGGER Municipio_acesso_2 AFTER INSERT ON municipio_acesso
 FOR EACH ROW EXECUTE PROCEDURE municipioacesso_function_normalizacao2();
 
 
+select t1.id_acessos, t1.ano, t1.mes,  t1.acesso, t1.Servico, t2.Densidade, 
+t2.codigo_ibge, t2.municipio, t2.uf, t2.nome_uf, t2.regiao, t2.codigo_nacional from Servicos t1 
+inner join LocaisAcesso t2 on t1.id_acessos = t2.id_acessos order by t1.id_acessos;

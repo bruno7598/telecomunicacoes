@@ -155,3 +155,7 @@ FOR EACH ROW EXECUTE PROCEDURE coberturaMovel_function_normalizacao4();
 
 
 
+select t1.*, t2.*, t3.*, t4.* from OperadoraMovel t1 inner join TipoSetorMovel t2 
+on t2.id_movel = t1.id_movel 
+inner join MunicipioMovel t3 on t3.id_movel = t2.id_movel
+inner join MoradoresMovel t4 on t4.id_movel = t3.id_movel order by id_movel;

@@ -147,3 +147,9 @@ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER Municipio_Cobertura_4 AFTER INSERT ON municipio_cobertura
 FOR EACH ROW EXECUTE PROCEDURE municipioCobertura_function_normalizacao4();
+
+
+select t1.*, t2.*, t3.*, t4.* from Operadoras t1 inner join AreaCobertura t2 
+on t2.id_cobertura = t1.id_cobertura 
+inner join Area_municipio t3 on t3.id_cobertura = t2.id_cobertura
+inner join LocaisCobertura t4 on t4.id_cobertura = t3.id_cobertura order by t1.id_cobertura;
