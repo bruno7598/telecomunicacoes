@@ -160,9 +160,14 @@ if __name__=="__main__":
             df=changeSymbol(df,column, "'","")
             df=changeSymbol(df,column, ",",".")
         
+        df=changeType(df, "Ano", 1)
+        df=changeType(df, "Mes", 1)
         df=changeType(df, "velocidade_contratada_mbps", 1)
+        df=changeType(df, "codigo_ibge", 1)
+        df=changeType(df, "acessos", 1)
+        
         kitShowDf(df)
-
+        
         df=contNull(df)
         df=fillNull(df,'NULO')
         df=fillNull(df,-1)
