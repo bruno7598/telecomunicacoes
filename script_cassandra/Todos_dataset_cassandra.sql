@@ -4,9 +4,9 @@ CREATE KEYSPACE IF NOT EXISTS telecomunicacoes
     WITH replication = { 'class' : 'SimpleStrategy', 'replication_factor' : 1};
 
 use telecomunicacoes;
-
+id_banda INT, 
 CREATE TABLE IF NOT EXISTS banda_larga (
-    id_banda INT, 
+    id_banda uuid primary key,
     ano INT, 
     mes INT, 
     grupo_economico TEXT, 
@@ -21,9 +21,7 @@ CREATE TABLE IF NOT EXISTS banda_larga (
     meio_de_acesso TEXT, 
     tipo_de_pessoa TEXT, 
     acessos INT,
-    PRIMARY KEY ((id_banda, municipio), empresa)
-)WITH CLUSTERING ORDER BY (empresa ASC);
-
+);
 
 
 create table if not exists municipio_acesso (
@@ -92,17 +90,17 @@ create table if not exists municipio_cobertura (
 
 create table if not exists tv_assinatura (
     id_tv_assinatura INT primary key,
-    ano int,
-    mes int,
-    grupo_economico text,
+    ano text,
+    mes INT,
+    grupo_economico bigint,
     Empresa text,
     CNPJ bigint,
     porte_prestadora text,
     uf text,
     municipio text,
-    codigo_ibge_municipio int,
+    codigo_ibge_municipio text,
     Tecnologia text,
-    Meio_acesso text,
+    Meio_acesso int,
     tipo_pessoa text,
     acessos int    
 ); 
