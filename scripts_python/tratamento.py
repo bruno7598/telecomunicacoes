@@ -2,197 +2,231 @@ from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession
 from unidecode import unidecode
 import pyspark.sql.functions as tt
-import re
 from pyspark.sql.types import DecimalType, FloatType, StringType, IntegerType
 
 """ 
 Fazer cometário em todas as funções
-Trocar nomes para ingles (switch,changeColumnName)
+Nomes de Metodos e atributos em ingles
 
 """
 
 def session():
-       
+    """Inicia sessão com Spark"""   
     try:
-        """Inicia sessão com Spark"""
         spark = SparkSession.builder.appName("OTR").config("spark.sql.caseSensitive", "True").getOrCreate()
-        return spark
     except Exception as e:
         print("Error in class ReadFormatCsv, def session: ", str(e))
+    else:
+        return spark
 
 def pathDatalake():
+    """Caminho padrão a datalake"""
     try:
-        """Caminho padrão a datalake"""
-        #path = f"C:\Soul_Code_Eng_Dados\Soul_Code_Org\Python\\"
         path = f"C:\Soul_Code_Eng_Dados\Soul_Code_Org\Ativ_Final\Dataset\\"
-        return path
     except Exception as e:
         print("Error in class ReadFormatCsv, def pathDatalake: ", str(e))
+    else:
+        return path
 
-def file(file="curto_Meu_Municipio_Acessos.csv"):
-    try:    
-        """Usuário insere nome do arquivo para leitura"""
-        #file = input("\nInsira o nome do arquivo e extensão: ")
-        return file
+def file():
+    """Usuário insere nome do arquivo para leitura"""
+    try: 
+        file = f"nome do arquivo"
     except Exception as e:
         print("Error in class ReadFormatCsv, def file: ", str(e))
+    else:
+        return file
         
 def pathWarehouse():
     try:
         """Caminho padrão warehouse"""
         path = f"C:\Soul_Code_Eng_Dados\Soul_Code_Org\Ativ_Final\Dataset\Warehouse"
-        return path
     except Exception as e:
         print("Error in class ReadFormatCsv, def pathWarehouse: ", str(e))
+    else:
+        return path
 
 def readFormatCsv():
     try:
         """Local - Busca arquivo, aceita cabeçalho, aceita separador, aceita schema, aceita formatação de caracteres"""
         ses = session()
-        #df = ses.read.csv(f"{pathDatalake()}{file()}", header=True, sep = ";", inferSchema=True, encoding='ISO-8859-1')
         df = ses.read.csv(f"{pathDatalake()}{file()}", header=True, sep = ";", inferSchema=True, encoding='UTF-8')
-        return df
     except Exception as e:
         print("Error in class ReadFormatCsv, def readFormatCsv: ", str(e))
+    else:
+        return df
         
-def mudaNome(df):
-    try:
+def changeName(df):
+    """Adequação de nomes de colunas"""
+    try:            
         lista_header_original=df.columns
+        for header in lista_header_original:
+            str_temp=unidecode(header)
+            list_words_split=str_temp.replace("(", "")
+            str_temp="^".join(word for word in list_words_split)
+            df=df.withColumnRenamed(header,list_words_split)
+            
+        lista_header_original=df.columns
+        for header in lista_header_original:
+            str_temp=unidecode(header)
+            list_words_split=str_temp.replace(")", "")
+            str_temp="^".join(word for word in list_words_split)
+            df=df.withColumnRenamed(header,list_words_split)
+            
+        lista_header_original=df.columns 
         for header in lista_header_original:  
             str_temp=unidecode(header)
-            
             list_words_split=str_temp.split(" ")
-            
             str_temp="_".join(word for word in list_words_split)
-            
             df=df.withColumnRenamed(header,str_temp)
-        return df    
     except Exception as e:
-        print(str(e)) 
+        print("Error in def changeName: ", str(e)) 
+    else:
+        return df
+
+def informCharacter(df):
+    try:
+         for column in df.columns:
+            df=changeSymbol(df,column, "'","")
+            df=changeSymbol(df,column, ",",".")
+            #df=changeSymbol(df,column, "caracter a ser removido","caracter desejddo")
+    except Exception as e:
+        print("Error in def changeCharacter: ", str(e))
+    else:
+        return df
           
-def mudaSimbolo(df,nome_coluna,simbolo_antigo,simbolo_novo):
+def changeSymbol(df,columnName,ancientSymbol,newSymbol):
+    """Altera caracteres e espaços vazios"""
+    try:
+        df=df.withColumn(columnName,tt.regexp_replace(columnName, ancientSymbol, newSymbol))
+    except Exception as e:
+        print("Error in def cahngeSymbol: ", str(e))
+    else:
+        return df
     
-    try:
-   
-        df=df.withColumn(nome_coluna,tt.regexp_replace(nome_coluna, simbolo_antigo, simbolo_novo))
-        return df  
-    except Exception as e:
-        print(str(e))
-        
-def casaDecimal(df,coluna_a_mudar,novo_tipo='teste'):
-    """[summary]
-
-    Args:
-        df ([dataframe]): [description]
-        coluna_a_mudar ([string]): [description]
-        novo_tipo ([string]): [inteiro, decimal ou string]
-
-    Returns:
-        [type]: [description]
+def informType(df):
+    """Estancia coluna para mudança de tipos
+    TIPOS:
+    [1] INTEIRO
+    [2] DECIMAL
+    [3] STRING
+    [4] FLOAT
     """
-
     try:
-        df=df.withColumn(coluna_a_mudar, tt.col(coluna_a_mudar).cast(DecimalType(38,2)))
-        return df  
+        #df=changeType(df, "nome da coluna a ser alterado o tipo de dado", "cod tipo desejado" (consultar em def changeType))
+        df=changeType(df, "Ano", 1)
     except Exception as e:
-        print(str(e))
+        print("Error in def changeCharacter: ", str(e))
+    else:
+        return df   
 
 def changeType(df, columnChange, new_type):
+    """Altera tipo de coluna"""
     try:
-        #columnChange = input("\nINSIRA O NOME DA COLUNA QUE DESEJA ALTERAR O TIPO: ")
-        """
-        TIPOS:
-        [1] INTEIRO
-        [2] DECIMAL
-        [3] STRING
-        [4] FLOAT
-        """
-        #new_type = input("\nINSIRA O CODIGO DO NOVO TIPO: ")
-        
+        new_type=str(new_type)
         if new_type == '1':
-            df=df.withColumn(columnChange, tt.col(columnChange).cast(IntegerType())).show(truncate=False)
-        
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(IntegerType()))
         elif new_type == '2':
-            df=df.withColumn(columnChange, tt.col(columnChange).cast(DecimalType(38,2))).show(truncate=False)
-        
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(DecimalType(38,2)))
         elif new_type == '3':
-            df=df.withColumn(columnChange, tt.col(columnChange).cast(StringType())).show(truncate=False)
-        
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(StringType()))
         elif new_type == '4':
-            df=df.withColumn(columnChange, tt.col(columnChange).cast(FloatType())).show(truncate=False)
-        
+            df=df.withColumn(columnChange, tt.col(columnChange).cast(FloatType()))
     except Exception as e:
         print("Error in def changeType: ", str(e))
     else:
         return df
-    
+        
 def contNull(df):
+    """Conta campos nulos"""
     try:
-        df.select([tt.count(tt.when(tt.isnull(c),c))\
-            .alias(c) for c in df.columns])\
-                .show(truncate=False)    
+        df.select([tt.count(tt.when(tt.isnull(c),c)).alias(c) for c in df.columns]).show(truncate=False)
     except Exception as e:
-        print(str(e))
+        print("Error in def contNull: ", str(e))
     else:
-        #df.show(truncate=False) retirar pós verificação
         return df
 
-def fillNull(df,insert_value):
-    for column in df.columns:
-        df=df.na.fill(value=insert_value, subset=[column])
-    return df
+def fillNull(df, insert_value):
+    """Inseri string(NULO) ou inteiro(-1) em campos nulos"""
+    try:
+        for column in df.columns:
+            df=df.na.fill(value=insert_value, subset=[column])
+    except Exception as e:
+        print("Error in def fillNull: ", str(e))
+    else:
+        return df
 
 def createParquet(df):
+    """Cria e reescreve parquet"""
     try:
         df.write.mode("overwrite").parquet(pathWarehouse())
     except Exception as e:
-        print(str(e))
+        print("Error in def createParquet: ", str(e))
 
 def readParquet(): 
+    """Lê parquet""" 
     try:
         df_Parquet = session().read.parquet(pathWarehouse())       
     except Exception as e:
-        print(str(e))
+        print("Error in def readParquet: ", str(e))
     else:
         return df_Parquet
-        
-#def mudaTipo(df,nome_coluna_mudar,tipo_novo):
-
-#def mudaTamanhoLetra():
+         
+def kitShow(df):
+    try: 
+        df.show(5, truncate=False)
+        print(file())
+        df.printSchema()
+        print("QUANTIDADE DE LINHAS: ",df.count())
+        print("QUANTIDADE DE COLUNAS: ", len(df.columns)) 
+    except Exception as e:
+        print("Error in def kitShow: ", str(e))
+    else:
+        return df
 
 if __name__=="__main__":
-    # ok retirar apostrofe e vírguls de todas as colunas
-    # ok preencher nulls com valor
-    # ok usar overwrite do parquet
-    # fazer função para mudar tipo da coluna
-    # contar quantidade de linhas e colunas
+    
     try: 
+        """Insira o nome do arquivo na 'def file'"""
+        """Insira o caminho do arquivo na 'def path'"""
+        """LEITURA DE CSV"""
         df=readFormatCsv()
+        kitShow(df)
+
+        df=changeName(df)
+        """\nPROVA ALTERAÇÃO DE NOME DE COLUNAS"""
+        kitShow(df)
         
-        df=mudaNome(df)
-        df.show()
-        for coluna in df.columns:
-            df=mudaSimbolo(df,coluna, "'","")
-            df=mudaSimbolo(df,coluna, ",",".")
-        
-        
-        df=casaDecimal(df,'Densidade')
-        
+        """Informa os caracteres que serão alterados"""
+        df=informCharacter(df)
+       
+        """Informa as colunas e o tipo de dado desejado"""
+        df=informType(df)
+ 
+        """\nPROVA ALTERAÇÃO DE TIPO DE COLUNAS"""
+        kitShow(df)
+
         df=contNull(df)
         df=fillNull(df,'NULO')
         df=fillNull(df,-1)
         
+        """\nPROVA CONTAGEM E PREENCHIMENTO DE CAMPOS NULOS"""
+        kitShow(df)
+        
+        """CRIA E REESCREVE PARQUET"""
         createParquet(df)
         
+        """LEIRUTA DE PARQUET"""
         df_Parquet=readParquet()
         
-        print("Imprime parquet 10")
+        print("\nPROVA CRIAÇÃO DE PARQUET 5")
         print("------------------")
-        df_Parquet.show(5, truncate=False)   
-       
+        kitShow(df_Parquet)
+            
     except Exception as e:
         print(str(e))
         
+  
     """
     * continumamos fazendo o tratamento de forma a criar rotina para tratar qualquer planilha
         * renomeação automática das colunas
@@ -200,17 +234,5 @@ if __name__=="__main__":
     * adequamos para funções em vez de classe
     * Discutir questão maiúscula minúscula
     * Colocar código no git
-    
-    Amanhã
-    
-    Meta: Entregar os códigos do tratamento de todas as planilhas
-    Meta2: Buscar tratamento sofisticado de duplicatas
-    
-    * [1] Fazer tratamento de aspas, vírgula
-    * [1] Fazer função alterar tipo de dado da coluna
-    * [2] Contar colunas(shape)
-    * [2] Mudar nomes funções para inglês
-    * [3] Pesquisar sobre tratamentos de dados duplicados
-    * [3] Discutir questão maiúscula/minúscula (regex)
-
+ 
     """
