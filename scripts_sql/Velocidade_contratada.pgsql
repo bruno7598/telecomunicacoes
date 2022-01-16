@@ -96,5 +96,7 @@ FOR EACH ROW EXECUTE PROCEDURE LogVelocidadeContratada_function_normalizacao2();
 
 
 
-select t1.*, t2.* from EmpresaVelocidade t1 inner join LocalidadeVelocidade t2 
+select t1.*, 
+t2.uf, t2.municipio, t2.codigo_ibge, t2.acessos, t2.tipo, t2.municipio_uf 
+from EmpresaVelocidade t1 inner join LocalidadeVelocidade t2 
 on t1.id_Velocidade_contratada = t2.id_Velocidade_contratada order by t1.id_Velocidade_contratada;

@@ -155,7 +155,12 @@ FOR EACH ROW EXECUTE PROCEDURE coberturaMovel_function_normalizacao4();
 
 
 
-select t1.*, t2.*, t3.*, t4.* from OperadoraMovel t1 inner join TipoSetorMovel t2 
+select t1.*, 
+t2.codigo_setor_censitario, t2.bairro, t2.tipo_setor, t2.codigo_localidade,
+t2.nome_localidade, t2.categoria_localidade, t2.localidade_agregadora, 
+t3.codigo_municipio, t3.municipio, t3.uf, t3.regiao, t3.area, 
+t4.Moradores, t4.domicilios, t4.Percentual_Cobertura 
+from OperadoraMovel t1 inner join TipoSetorMovel t2 
 on t2.id_movel = t1.id_movel 
 inner join MunicipioMovel t3 on t3.id_movel = t2.id_movel
 inner join MoradoresMovel t4 on t4.id_movel = t3.id_movel order by id_movel;

@@ -124,6 +124,9 @@ FOR EACH ROW EXECUTE PROCEDURE TvAssinatura_function_normalizacao3();
 
 
 
-select t1.*, t2.*, t3.* from empresatvassinatura t1 inner join localidadetvassinatura t2 
+select t1.*, 
+t2.uf, t2.municipio, t2.codigo_ibge_municipio, 
+t3.tipo_pessoa, t3.acessos
+from empresatvassinatura t1 inner join localidadetvassinatura t2 
 on t2.id_tv_assinatura = t1.id_tv_assinatura 
 inner join tipopessoatvassinatura t3 on t3.id_tv_assinatura = t2.id_tv_assinatura order by t1.id_tv_assinatura;

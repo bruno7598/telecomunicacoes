@@ -144,8 +144,11 @@ LANGUAGE 'plpgsql';
 CREATE TRIGGER Banda_larga_4 AFTER INSERT ON banda_larga
 FOR EACH ROW EXECUTE PROCEDURE bandalarga_function_normalizacao4();
 
-
-select t1.*, t2.*, t3.*, t4.* from Empresa t1 inner join Localidade t2 
+select t1.*, 
+t2.uf, t2.municipio, t2.codigo_ibge_municipio,
+t3.tecnologia,t3.faixa_velocidade,t3.meio_acesso,
+t4.tipo_pessoa, t4.acesso 
+from Empresa t1 inner join Localidade t2 
 on t2.id_banda = t1.id_banda 
 inner join tecnologia t3 on t3.id_banda = t2.id_banda
 inner join acessos t4 on t4.id_banda = t3.id_banda;
