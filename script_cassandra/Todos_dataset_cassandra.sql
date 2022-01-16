@@ -6,7 +6,7 @@ CREATE KEYSPACE IF NOT EXISTS telecomunicacoes
 use telecomunicacoes;
 id_banda INT, 
 CREATE TABLE IF NOT EXISTS banda_larga (
-    id_banda uuid primary key,
+    id_banda int primary key,
     ano INT, 
     mes INT, 
     grupo_economico TEXT, 

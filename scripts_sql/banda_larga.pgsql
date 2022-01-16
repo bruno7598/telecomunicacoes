@@ -74,7 +74,7 @@ FOR EACH ROW EXECUTE PROCEDURE FUNCTION_LOG_BANDA_LARGA();
 CREATE OR REPLACE FUNCTION bandalarga_function_normalizacao1() RETURNS TRIGGER as $$
     BEGIN
     	IF (tg_op = 'INSERT') THEN
-            CREATE or REPLACE view Empresa as 
+            CREATE or REPLACE view EmpresaBandaLarga as 
             select id_banda,ano,mes, grupo_economico, empresa, cnpj, porte
             from banda_larga  
             order by empresa;   
@@ -93,7 +93,7 @@ FOR EACH ROW EXECUTE PROCEDURE bandalarga_function_normalizacao1();
 CREATE OR REPLACE FUNCTION bandalarga_function_normalizacao2() RETURNS TRIGGER as $$
     BEGIN
     	IF (tg_op = 'INSERT') THEN
-			CREATE or REPLACE view Tecnologia as 
+			CREATE or REPLACE view TecnologiaBandaLarga as 
             select id_banda, tecnologia, faixa_velocidade,  meio_acesso
             from banda_larga  
             order by tecnologia; 
@@ -112,7 +112,7 @@ FOR EACH ROW EXECUTE PROCEDURE bandalarga_function_normalizacao2();
 CREATE OR REPLACE FUNCTION bandalarga_function_normalizacao3() RETURNS TRIGGER as $$
     BEGIN
     	IF (tg_op = 'INSERT') THEN
-			CREATE or REPLACE view Localidade as 
+			CREATE or REPLACE view LocalidadeBandaLarga as 
             select id_banda, uf, municipio, codigo_ibge_municipio
             from banda_larga  
             order by municipio; 
@@ -130,7 +130,7 @@ FOR EACH ROW EXECUTE PROCEDURE bandalarga_function_normalizacao3();
 CREATE OR REPLACE FUNCTION bandalarga_function_normalizacao4() RETURNS TRIGGER as $$
     BEGIN
     	IF (tg_op = 'INSERT') THEN
-			CREATE or REPLACE view Acessos as 
+			CREATE or REPLACE view AcessosBandaLarga as 
             select id_banda, tipo_pessoa, acesso
             from banda_larga  
             order by id_banda; 
@@ -148,8 +148,8 @@ select t1.*,
 t2.uf, t2.municipio, t2.codigo_ibge_municipio,
 t3.tecnologia,t3.faixa_velocidade,t3.meio_acesso,
 t4.tipo_pessoa, t4.acesso 
-from Empresa t1 inner join Localidade t2 
+from EmpresaBandaLarga t1 inner join LocalidadeBandaLarga t2 
 on t2.id_banda = t1.id_banda 
-inner join tecnologia t3 on t3.id_banda = t2.id_banda
-inner join acessos t4 on t4.id_banda = t3.id_banda;
+inner join TecnologiaBandaLarga t3 on t3.id_banda = t2.id_banda
+inner join AcessosBandaLarga t4 on t4.id_banda = t3.id_banda;
 
