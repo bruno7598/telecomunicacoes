@@ -46,21 +46,21 @@ create table if not exists cobertura_movel (
     Ano int,
     Operadora text,
     Tecnologia text,
-    codigo_setor_censitario int,
+    codigo_setor_censitario text,
     Bairro text,
     tipo_setor text,
-    codigo_localidade int,
+    codigo_localidade text,
     nome_localidade text,
     categoria_localidade text,
     localidade_agregadora text,
-    codigo_municipio int,
+    codigo_municipio text,
     municipio text,
     uf text,
     regiao text,
     area text,
-    domicilios INT,
-    Moradores INT,
-    Percentual_cobertura FLOAT
+    domicilios text,
+    Moradores text,
+    Percentual_cobertura text
 ); 
 
 
