@@ -112,12 +112,12 @@ create table if not exists Velocidade_contratada (
     ano int,
     mes int,
     razao_social text,	
-    cnpj BIGINT,	
+    cnpj text,	
     velocidade_contratada_mbps text,
     uf text,
     municipio text,	
-    codigo_ibge BIGINT,
-    acessos INT,
+    codigo_ibge text,
+    acessos text,
     tipo text,	
     municipio_uf text
 );
