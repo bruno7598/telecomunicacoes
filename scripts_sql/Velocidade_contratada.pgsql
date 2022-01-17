@@ -23,15 +23,15 @@ CREATE TABLE IF NOT EXISTS log_Velocidade_contratada(
 
 create table if not exists Velocidade_contratada (
     id_Velocidade_contratada serial primary key,
-    ano int,
-    mes int,
+    ano float,
+    mes float,
     razao_social text,	
     cnpj text,	
-    velocidade_contratada_mbps text,
+    velocidade_contratada_mbps float,
     uf text,
     municipio text,	
-    codigo_ibge	text,
-    acessos	text,
+    codigo_ibge	float,
+    acessos	float,
     tipo text,	
     municipio_uf text
 );

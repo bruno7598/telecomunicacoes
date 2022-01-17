@@ -109,15 +109,15 @@ create table if not exists tv_assinatura (
 
 create table if not exists Velocidade_contratada (
     id_Velocidade_contratada INT primary key,
-    ano int,
-    mes int,
+    ano FLOAT,
+    mes FLOAT,
     razao_social text,	
     cnpj text,	
-    velocidade_contratada_mbps text,
+    velocidade_contratada_mbps FLOAT,
     uf text,
     municipio text,	
-    codigo_ibge text,
-    acessos text,
+    codigo_ibge FLOAT,
+    acessos FLOAT,
     tipo text,	
     municipio_uf text
 );
