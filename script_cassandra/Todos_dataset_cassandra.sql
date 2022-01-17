@@ -31,7 +31,7 @@ create table if not exists municipio_acesso (
     Acesso text,
     Servico text,
     Densidade text,
-    codigo_ibge BIGINT,
+    codigo_ibge text,
     municipio text,
     uf text,
     nome_uf text,
@@ -67,6 +67,7 @@ create table if not exists cobertura_movel (
 
 create table if not exists municipio_cobertura (
     id_cobertura INT primary key,
+    Ano TEXT,
     operadora text,
     tecnologia_cobertura text,
     Moradores_cobertos text,
@@ -75,8 +76,7 @@ create table if not exists municipio_cobertura (
     Moradores_municipio TEXT,
     domicilios_Municipio text,
     Area_municipio text,
-    Ano TEXT,
-    codigo_ibge BIGINT,
+    codigo_ibge text,
     municipio text,
     uf text,
     nome_uf text,
@@ -89,20 +89,20 @@ create table if not exists municipio_cobertura (
 
 
 create table if not exists tv_assinatura (
-    id_tv_assinatura INT primary key,
-    ano text,
+    id_tv_assinatura int PRIMARY KEY ,
+    Empresa TEXT,
+    ano INT,
     mes INT,
-    grupo_economico bigint,
-    Empresa text,
-    CNPJ bigint,
-    porte_prestadora text,
-    uf text,
-    municipio text,
-    codigo_ibge_municipio text,
-    Tecnologia text,
-    Meio_acesso int,
-    tipo_pessoa text,
-    acessos int    
+    grupo_economico TEXT,
+    CNPJ BIGINT,
+    porte_prestadora TEXT,
+    Tecnologia TEXT,
+    Meio_acesso TEXT,
+    uf TEXT,
+    municipio TEXT,
+    codigo_ibge_municipio INT,
+    tipo_pessoa TEXT,
+    acessos INT 
 ); 
 
 
