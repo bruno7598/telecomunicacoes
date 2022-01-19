@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS banda_larga (
 );
 
 
+
 create table if not exists municipio_acesso (
     id_acessos int primary key,
     ano int,
