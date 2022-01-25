@@ -27,9 +27,9 @@ Configurações necessarias:
 *Necessário criar bancos de dados
 
 Ordem de execução dos scripts:
-    script_tables_postgre.py
-    treatment_banda_larga.py
-    postgre_insert_banda_larga.py
+    script_tables_postgre.py \
+    treatment_banda_larga.py \
+    postgre_insert_banda_larga.py \
     treatment_cobertura_movel.py
     postgre_insert_cobertura_movel.py
     treatment_municipio_acessos.py
