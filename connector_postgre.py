@@ -98,7 +98,7 @@ def get_db_info():
     """
     try:
         user = "postgres"
-        password = "Michel2009!"
+        password = "xxxxxxxxxx"
         host = "127.0.0.1"
         database = "telecom"
         return user, password, host, database
